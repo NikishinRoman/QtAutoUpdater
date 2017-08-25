@@ -44,10 +44,16 @@ void UpdaterTest::initTestCase()
 	if(!qgetenv("LD_PRELOAD").contains("Qt5AutoUpdaterCore"))
 		qWarning() << "No LD_PRELOAD set - this may fail on systems with multiple version of the modules";
 #endif
+
+	qputenv("QTAUTOUPDATERCORE_PLUGIN_OVERWRITE",
+			OUTDIR + QByteArray("../../../../plugins/updaters/"));
+
 	controller = new InstallerController(this);
 	controller->createRepository();
 	controller->createInstaller();
 	controller->installLocal();
+	controller->setVersion({1, 1, 0});
+	controller->createRepository();
 }
 
 void UpdaterTest::testUpdaterInitState()
