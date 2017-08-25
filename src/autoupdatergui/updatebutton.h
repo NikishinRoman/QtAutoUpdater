@@ -64,7 +64,7 @@ Q_SIGNALS:
 private Q_SLOTS:
 	void startUpdate();
 	void changeUpdaterState(bool isRunning);
-	void updatesReady(QtAutoUpdater::Updater::UpdaterState result);
+	void updatesReady(int result);
 	void controllerDestroyed();
 
 private:
