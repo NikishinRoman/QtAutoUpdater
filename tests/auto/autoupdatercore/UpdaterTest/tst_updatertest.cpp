@@ -62,7 +62,6 @@ void UpdaterTest::testUpdaterInitState()
 
 	//error state
 	QVERIFY(updater->exitedNormally());
-	QCOMPARE(updater->errorCode(), EXIT_SUCCESS);
 	QVERIFY(updater->errorString().isEmpty());
 	QVERIFY(updater->extendedErrorLog().isEmpty());
 
@@ -140,7 +139,6 @@ void UpdaterTest::testUpdateCheck()
 	QCOMPARE(checkSpy->size(), 1);
 	QVariantList varList = checkSpy->takeFirst();
 	QVERIFY(updater->exitedNormally());
-	QCOMPARE(updater->errorCode(), hasUpdates ? EXIT_SUCCESS : EXIT_FAILURE);
 	QCOMPARE(varList[1].toBool(), false);//no errors please
 
 	//verifiy the "hasUpdates" and "updates" are as expected
