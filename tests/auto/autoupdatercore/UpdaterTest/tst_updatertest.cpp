@@ -83,7 +83,7 @@ void UpdaterTest::testUpdaterInitState()
 	//deprecated fns
 	QT_WARNING_PUSH
 	QT_WARNING_DISABLE_DEPRECATED
-	QVERIFY(updater->exitedNormally());
+	QVERIFY(!updater->exitedNormally());
 	QVERIFY(updater->errorLog().isEmpty());
 	QVERIFY(!updater->isRunning());
 	QT_WARNING_POP
