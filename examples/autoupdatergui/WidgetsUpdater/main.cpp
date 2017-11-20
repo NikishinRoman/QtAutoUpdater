@@ -8,8 +8,9 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	QApplication::setWindowIcon(QIcon(QStringLiteral(":/icons/main.ico")));
 	QApplication::setApplicationDisplayName(QStringLiteral("Widgets-Test"));
-	MainWindow w;
-	w.show();
+
+	qputenv("QTAUTOUPDATERCORE_PLUGIN_OVERWRITE",
+			(QCoreApplication::applicationDirPath() + QStringLiteral("/../../../plugins/updaters/")).toUtf8());
 
 	QTranslator tr;
 	tr.load(QLocale(),
@@ -17,6 +18,9 @@ int main(int argc, char *argv[])
 			QStringLiteral("_"),
 			QApplication::applicationDirPath());
 	QApplication::installTranslator(&tr);
-
+	
+	MainWindow w;
+	w.show();
+	
 	return a.exec();
 }
