@@ -45,7 +45,7 @@ void UpdaterTest::initTestCase()
 		qWarning() << "No LD_PRELOAD set - this may fail on systems with multiple version of the modules";
 #endif
 
-	qputenv("QTAUTOUPDATERCORE_PLUGIN_OVERWRITE",
+	qputenv("PLUGIN_UPDATERS_PATH",
 			(QCoreApplication::applicationDirPath() + QStringLiteral("/../../../../plugins/updaters/")).toUtf8());
 
 	qRegisterMetaType<Updater::UpdaterState>("UpdaterState");
@@ -60,13 +60,13 @@ void UpdaterTest::initTestCase()
 
 void UpdaterTest::testUpdaterInitState()
 {
-	QVERIFY(Updater::supportedUpdaterTypes().contains("qtifw"));
+	QVERIFY(Updater::supportedUpdaterTypes().contains(QStringLiteral("qtifw")));
 
 	updater = new Updater(this);
 
 	//error state
 	QVERIFY(!updater->isValid());//maintenance tool does not exist
-	QCOMPARE(updater->updaterType(), QByteArray("qtifw"));
+	QCOMPARE(updater->updaterType(), QStringLiteral("qtifw"));
 	QVERIFY(updater->errorString().isEmpty());
 	QVERIFY(updater->extendedErrorLog().isEmpty());
 	QVERIFY(!updater->willRunOnExit());
