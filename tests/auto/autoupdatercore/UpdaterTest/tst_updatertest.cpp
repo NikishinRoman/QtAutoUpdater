@@ -45,8 +45,7 @@ void UpdaterTest::initTestCase()
 		qWarning() << "No LD_PRELOAD set - this may fail on systems with multiple version of the modules";
 #endif
 
-	qputenv("PLUGIN_UPDATERS_PATH",
-			(QCoreApplication::applicationDirPath() + QStringLiteral("/../../../../plugins/updaters/")).toUtf8());
+	qputenv("PLUGIN_UPDATERS_PATH", DBG_PLUGIN_DIR);
 
 	qRegisterMetaType<Updater::UpdaterState>("UpdaterState");
 
@@ -67,7 +66,8 @@ void UpdaterTest::testUpdaterInitState()
 	//error state
 	QVERIFY(!updater->isValid());//maintenance tool does not exist
 	QCOMPARE(updater->updaterType(), QStringLiteral("qtifw"));
-	QVERIFY(updater->errorString().isEmpty());
+	QCOMPARE(updater->state(), Updater::HasError);//because no backend loaded
+	QVERIFY(!updater->errorString().isEmpty());//because no backend loaded
 	QVERIFY(updater->extendedErrorLog().isEmpty());
 	QVERIFY(!updater->willRunOnExit());
 
